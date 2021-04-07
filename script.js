@@ -3,9 +3,11 @@ const logo = document.querySelector(".nav__logo");
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav__menu");
 const navLinks = document.querySelectorAll(".nav__link");
-const sections = document.querySelectorAll("section[id]");
+const sections = document.querySelectorAll("section");
 const header = document.querySelector(".header");
 const scrollTop = document.querySelector(".scroll__top");
+const home = document.querySelector(".home");
+const hi = document.querySelector(".home__hi");
 const about = document.querySelector(".about");
 const footerDate = document.querySelector(".date");
 
@@ -29,8 +31,10 @@ navLinks.forEach((link) => link.addEventListener("click", linkAction));
 const scrollActive = () => {
   const scrollY = window.pageYOffset;
   sections.forEach((section) => {
+    if (!section.hasAttribute("id")) return;
     const sectionHeight = section.offsetHeight;
     const sectionTop = section.offsetTop - 50;
+
     sectionId = section.getAttribute("id");
 
     if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
@@ -72,3 +76,25 @@ window.addEventListener("scroll", scrollToTop);
 // DATE
 const date = new Date();
 footerDate.textContent = date.getFullYear();
+
+window.addEventListener("scroll", () => {
+  let scrollY = window.pageYOffset;
+  home.style.backgroundPositionY = `${scrollY * 0.7}px`;
+});
+
+// REVEAL SECTIONS
+const revealSections = (entries, observer) => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  entry.target.firstElementChild.classList.remove("hidden");
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSections, {
+  root: null,
+  threshold: 0.25,
+});
+
+sections.forEach((section) => {
+  sectionObserver.observe(section);
+});
