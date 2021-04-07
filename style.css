@@ -567,10 +567,6 @@ img {
   font-weight: var(--font-medium);
 }
 
-.qualification__icon,
-.qualification__work {
-}
-
 .qualification__work {
   display: block;
 }
