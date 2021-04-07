@@ -10,6 +10,7 @@ const home = document.querySelector(".home");
 const hi = document.querySelector(".home__hi");
 const about = document.querySelector(".about");
 const footerDate = document.querySelector(".date");
+const screenmode = document.querySelector(".screen__mode");
 
 // SHOW MENU
 const showMenu = () => {
@@ -54,7 +55,7 @@ window.addEventListener("scroll", scrollActive);
 function scrollHeader() {
   const sectionTop = about.offsetTop;
 
-  if (this.scrollY >= sectionTop) {
+  if (this.scrollY >= sectionTop - 50) {
     header.classList.add("scroll-header");
   } else {
     header.classList.remove("scroll-header");
@@ -65,7 +66,7 @@ window.addEventListener("scroll", scrollHeader);
 // SHOW SCROLL TOP
 function scrollToTop() {
   const sectionTop = about.offsetTop;
-  if (this.scrollY >= sectionTop) {
+  if (this.scrollY >= sectionTop - 50) {
     scrollTop.classList.add("show-scroll");
   } else {
     scrollTop.classList.remove("show-scroll");
@@ -77,6 +78,8 @@ window.addEventListener("scroll", scrollToTop);
 const date = new Date();
 footerDate.textContent = date.getFullYear();
 
+// HOME PARRALAX
+home.style.backgroundPositionY = 0;
 window.addEventListener("scroll", () => {
   let scrollY = window.pageYOffset;
   home.style.backgroundPositionY = `${scrollY * 0.7}px`;
@@ -97,4 +100,14 @@ const sectionObserver = new IntersectionObserver(revealSections, {
 
 sections.forEach((section) => {
   sectionObserver.observe(section);
+});
+
+// DARK MODE
+let screen = true;
+
+screenmode.addEventListener("click", () => {
+  screen = !screen;
+  screenmode.innerHTML = screen
+    ? `<span class="sun"><i class="far fa-sun"></i></span>`
+    : `<span class="sun"><i class="far fa-moon"></i></span>`;
 });
