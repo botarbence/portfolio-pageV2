@@ -14,8 +14,9 @@ const about = document.querySelector(".about");
 const footerDate = document.querySelector(".date");
 const screenmode = document.querySelector(".screen__mode");
 const skills = document.querySelector(".skills__container");
-const hu = document.querySelector(".hu");
-const en = document.querySelector(".en");
+const languageBtns = document.querySelector(".language__buttons");
+const textElements = document.querySelectorAll("[data-key]");
+
 // SHOW MENU
 const showMenu = () => {
   if ((nav, hamburger)) {
@@ -149,83 +150,128 @@ const createSkills = () => {
 
 // CHANGE LANGUAGE
 
-let currentLanguage = "en";
-
-const text = [
-  ["About", "Rólam"],
-  ["Skills", "Szakértelem"],
-  ["Services", "Szolgáltatás"],
-  ["Portfolio", "Portfólió"],
-  ["Contact", "Kapcsolat"],
-  ["I am", "Bence"],
-  ["Bence", "vagyok,"],
-  ["Web Developer", "Webfejlesztő"],
-  ["My history", "Egy kis info"],
-  ["About Me", "Rólam"],
-  ["Years of Experience", "év tapasztalat"],
-  ["Projects", "Projektek"],
-  ["Competence", "Kompetenciák"],
-  ["Skills", "Szakértelem"],
-  ["Professional Skills", "Ismert nyelvek"],
-  ["Lorem ipsum dolor sit.", "asfgsdgsdfgsdfgsdfgsdfgsdfgsdfgd"],
-  ["Experience and Education", "Tapasztalat és képzés"],
-  ["Qualifications", "Kvalifikációk"],
-  ["Work Experience", "Munkahelyek"],
-  ["Junior Front End Developer", "Junior Front End Developer"],
-  ["UI/UX Designer", "UI/UX Designer"],
-  ["Education", "Képzések"],
-  ["Online Course", "Online Course"],
-  ["What I offer", "Amit nyújtok"],
-  ["Services", "Szolgáltatás"],
-  ["UI/UX Design", "UI/UX Design"],
-  ["asfgsdgsdfgsdfgsdfgsdfgsdfgsdfgd", "asfgsdgsdfgsdfgsdfgsdfgsdfgsdfgd"],
-  ["Know More", "Tudj meg többet"],
-  ["Web development", "Webfejlesztés"],
-  ["asfgsdfsssfsffgsdfgsdfgsdfgd", "sssfsffgsdfgsdfg"],
-  ["Graphic Design", "Grafikus design"],
-  ["Coming Soon", "Hamarosan"],
-  ["Projects in mind", "Milyen projekt jár a fejedben_"],
-  ["Contact me if you would like your ideas to be implemented", "Jelentekzz"],
-  ["Hire Me", "Fogadj fel"],
-  ["My recents work", "Legutóbi munkáim"],
-  ["All", "Mind"],
-  ["Web development", "Webfejlesztés"],
-  ["New portfolio", "Új portfolió"],
-  ["View Details", "Részletek"],
-  ["Client reviews", "Visszajelzések"],
-  ["Testimonial", "Rólam mondták"],
-  ["Client", "Kliens"],
-  ["sdgagfeyegrjhntmjkmyynyhjbyhtybertverg", "rjhntmjkmyynyhjbyhtyb"],
-  ["Feel free to", "Írj nekem"],
-  ["Contact me", "Kapcsolat"],
-  ["Location", "Helyszín"],
-  ["Budapest, Hungary", "Budapest, MO"],
-  ["Phone", "Telefon"],
-  ["Chat", "Üzenet"],
-  ["Hope I hear from you soon", "Remeéem írsz"],
-];
-
-const textElements = document.querySelectorAll(".txt");
-const changeText = (language) => {
-  if (language === currentLanguage) return;
-  textElements.forEach((element) => {
-    let index = currentLanguage === "en" ? 0 : 1;
-    const findText = text.find(
-      (el) => el[index] === element.textContent.trim()
-    );
-    index = index === 0 ? 1 : 0;
-    element.textContent = findText[index];
-  });
-  currentLanguage = language;
+const data = {
+  en: {
+    navAbout: "About",
+    navSkills: "Skills",
+    navServices: "Services",
+    navPortfolio: "Portfolio",
+    navContact: "Contact",
+    welcome: "I am",
+    name: "Bence",
+    profession: "Web Developer",
+    aboutSubtitle: "Some information",
+    aboutTitle: "About Me",
+    aboutDescription1:
+      "my name is Bence Botár and I live in Budapest. As a professional musician, my work environment was highly affected by the pandemic and restrictions, so I had to reconsider my future career and possibilities. I’ve always been interested in the creative and challenging tasks, that is why I decided to start learning web development.",
+    aboutDescription2:
+      "In the spring of 2020, I participated in the GreenFox Academy's 'MyFirstApp Coding' bootcamp. After that I successfully completed the 'Redesign Program' supported by the Hungarian state, which aimed to teach basic digital, IT skills and to provide insights about the basics of programming and website building. In parallel I continuously educated myself in the freeCodeCamp and Udemy online web development courses.",
+    aboutDescription3:
+      "My goal is to implement projects where I can apply the knowledge I have gained in practice.",
+    aboutExperience: "Years of Experience",
+    aboutProjects: "Projects",
+    skillsSubtitle: "Here are my",
+    skillsTitle: "Skills",
+    skillTitle: "Professional Knowledge",
+    skillText: "sdfasdfnasdflas",
+    qualificationsSubtitle: "Experience and Education",
+    qualificationsTitle: "Qualifications",
+    workTitle: "Work Experience",
+    educationTitle: "Education",
+    servicesSubtitle: "What I offer",
+    servicesTitle: "Services",
+    serviceButton: "Know More",
+    uiuxTitle: "UI/UX Design",
+    uiuxDescription: "dfgsdfgdsfgd",
+    webdevTitle: "Web Development",
+    webdevDescriptions: "fgsdfgdfsgdf",
+    graphicDesignTitle: "Graphic Design",
+    graphicDesignDescription: "Coming Soon",
+    projectTitle: "Project in Mind",
+    projectDescription: "Contact me if you have an idea",
+    projectButton: "Hire Me",
+    portfoliosSubtitle: "My recent work",
+    portfoliosTitle: "Portfolio",
+    portfolioNavAll: "All",
+    testimonialSubtitle: "Client reviews",
+    testimonialTitle: "Testimonial",
+    cpntactsSubtitle: "Feel free to",
+    contactsTitle: "Contact Me",
+    location: "Location",
+    locationPlace: "Budapest, Hungary",
+    phone: "Phone",
+    chat: "Chat",
+    footerDescription: "Hope I hear from you soon",
+    contactButton: "Send Message",
+  },
+  hu: {
+    navAbout: "Rólam",
+    navSkills: "Szakértelem",
+    navServices: "Szolgáltatás",
+    navPortfolio: "Portfólió",
+    navContact: "Kapcsolat",
+    welcome: "Botár",
+    name: "Bence",
+    profession: "Web Fejlesztő",
+    aboutSubtitle: "Egy kis információ",
+    aboutTitle: "Rólam",
+    aboutDescription1:
+      "Botár Bence vagyok és Budapesten élek. Professzionális zenészként eltöltött 20 év után, a 2020/21-es pandémia okozta korlátozások alatt kezdtem új kihívásokat keresni. Mindig is érdekeltek a kreatív, építő, alkotó és elgondolkodtató feladatok, ezért döntöttem úgy, hogy belevágok a webfejlesztésbe.",
+    aboutDescription2:
+      "2020 tavaszán részt vettem a GreenFox Academy több hetes „MyFirstApp Coding” tréningjén, sikeresen elvégeztem 2020 nyarán a magyar állam által támogatott „Újratervezés programot”, illetve mindezzel párhuzamosan folyamatosan képeztem magam a freeCodeCamp és Udemy online webfejlesztői kurzusain.",
+    aboutDescription3:
+      "Célom, olyan projektek megvalósítása, ahol az eddig megszerezett tudásomat alkalmazhatom és gyarapíthatom a gyakorlatban.",
+    aboutExperience: "Éves tapasztalat",
+    aboutProjects: "Projektek",
+    skillsSubtitle: "",
+    skillsTitle: "Szakértelem",
+    skillTitle: "Szaktudás",
+    skillText: "sdfasdfnasdflas",
+    qualificationsSubtitle: "Tapasztalat és képesítés",
+    qualificationsTitle: "Qualifications",
+    workTitle: "Munkatapasztalat",
+    educationTitle: "Képzések",
+    servicesSubtitle: "Amit nyújtok",
+    servicesTitle: "Szolgáltatások",
+    serviceButton: "Tudj meg többet",
+    uiuxTitle: "UI/UX Design",
+    uiuxDescription: "dfgsdfgdsfgd",
+    webdevTitle: "Web Fejlesztés",
+    webdevDescriptions: "fgsdfgdfsgdf",
+    graphicDesignTitle: "Graphic Design",
+    graphicDesignDescription: "Hamarosan",
+    projectTitle: "Ha van egy ötleted...",
+    projectDescription: "Lépj velem kapcsolatba.",
+    projectButton: "Írj nekem",
+    portfoliosSubtitle: "Legutóbbi munkáim",
+    portfoliosTitle: "Portfólió",
+    portfolioNavAll: "Mind",
+    testimonialSubtitle: "Rólam írták",
+    testimonialTitle: "Visszajelzések",
+    contactsSubtitle: "Feel free to",
+    contactsTitle: "Kapcsolat",
+    location: "Helyszín",
+    locationPlace: "Budapest, Magyarország",
+    phone: "Telefon",
+    chat: "Üzenet",
+    footerDescription: "Hope I hear from you soon",
+    contactButton: "Küldés",
+  },
 };
 
-hu.addEventListener("click", () => {
-  changeText("hu");
-  en.classList.remove("language__active");
-  hu.classList.add("language__active");
-});
-en.addEventListener("click", () => {
-  changeText("en");
-  hu.classList.remove("language__active");
-  en.classList.add("language__active");
+const setLanguage = (language) => {
+  textElements.forEach((element) => {
+    let text = element.dataset.key;
+    element.textContent = data[language][text];
+  });
+};
+setLanguage("en");
+
+languageBtns.addEventListener("click", (e) => {
+  let language = e.target.dataset.lang;
+  setLanguage(language);
+  [...languageBtns.children].forEach((el) =>
+    el.classList.remove("language__active")
+  );
+  e.target.classList.add("language__active");
 });

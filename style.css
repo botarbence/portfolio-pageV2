@@ -198,7 +198,7 @@ img {
   transition: all 0.5s;
 }
 
-.language__selector {
+.language__buttons {
   width: 3.5rem;
   margin: var(--mb-1) var(--mb-1) 0;
   display: flex;
@@ -667,7 +667,7 @@ img {
   margin-bottom: var(--mb-4);
 }
 
-.skills__data {
+.skill__data {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -679,17 +679,17 @@ img {
   box-shadow: 0 4px 12px rgba(174, 190, 205, 0.3);
 }
 
-.skills__icon {
+.skill__icon {
   font-size: 2rem;
   margin-right: var(--mb-1);
 }
 
-.skills__names {
+.skill__names {
   display: flex;
   align-items: center;
 }
 
-.skills__bar {
+.skill__bar {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -699,23 +699,23 @@ img {
   z-index: var(--z-back);
 }
 
-.skills__html {
+.skill__html {
   width: 90%;
 }
 
-.skills__css {
+.skill__css {
   width: 80%;
 }
 
-.skills__js {
+.skill__js {
   width: 80%;
 }
 
-.skills__ux {
+.skill__ux {
   width: 85%;
 }
 
-.skills__react {
+.skill__react {
   width: 65%;
 }
 
@@ -762,7 +762,7 @@ img {
 
 /* Services */
 
-.services__data {
+.service__data {
   padding: 3rem 1rem;
   background-color: var(--primary-color);
   border-radius: 0.5rem;
@@ -771,25 +771,25 @@ img {
   box-shadow: 0 4px 12px rgba(174, 190, 205, 0.3);
 }
 
-.services__icon,
-.services__title {
+.service__icon,
+.service__title {
   margin-bottom: var(--mb-2);
   color: var(--first-color);
 }
 
-.services__icon {
+.service__icon {
   font-size: 3rem;
 }
 
-.services__title {
+.service__title {
   font-size: var(--h4-font-size);
 }
 
-.services__description {
+.service__description {
   margin-bottom: var(--mb-4);
 }
 
-.services__data:hover {
+.service__data:hover {
   transform: translateY(-0.5rem);
   box-shadow: 0 6px 12px rgba(174, 190, 205, 0.4);
 }
