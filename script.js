@@ -7,7 +7,9 @@ const sections = document.querySelectorAll("section");
 const header = document.querySelector(".header");
 const scrollTop = document.querySelector(".scroll__top");
 const home = document.querySelector(".home");
-const hi = document.querySelector(".home__hi");
+const greeting = document.querySelector(".home__greeting");
+const social = document.querySelector(".home__social");
+const introduction = document.querySelector(".home__introduction");
 const about = document.querySelector(".about");
 const footerDate = document.querySelector(".date");
 const screenmode = document.querySelector(".screen__mode");
@@ -107,7 +109,20 @@ let screen = true;
 
 screenmode.addEventListener("click", () => {
   screen = !screen;
+  document.body.classList.toggle("dark-theme");
   screenmode.innerHTML = screen
-    ? `<span class="sun"><i class="far fa-sun"></i></span>`
+    ? `<span class="sun"><i class="fas fa-sun"></i></span>`
     : `<span class="sun"><i class="far fa-moon"></i></span>`;
 });
+
+// LOAD PAGE
+
+const init = () => {
+  setTimeout(() => {
+    greeting.classList.remove("greeting__hidden");
+    social.classList.remove("social__hidden");
+    introduction.classList.remove("introduction__hidden");
+  }, 1000);
+};
+
+window.addEventListener("load", init);
