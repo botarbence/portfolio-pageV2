@@ -13,7 +13,9 @@ const introduction = document.querySelector(".home__introduction");
 const about = document.querySelector(".about");
 const footerDate = document.querySelector(".date");
 const screenmode = document.querySelector(".screen__mode");
-
+const skills = document.querySelector(".skills__container");
+const hu = document.querySelector(".hu");
+const en = document.querySelector(".en");
 // SHOW MENU
 const showMenu = () => {
   if ((nav, hamburger)) {
@@ -97,7 +99,7 @@ const revealSections = (entries, observer) => {
 
 const sectionObserver = new IntersectionObserver(revealSections, {
   root: null,
-  threshold: 0.25,
+  threshold: 0.2,
 });
 
 sections.forEach((section) => {
@@ -126,3 +128,104 @@ const init = () => {
 };
 
 window.addEventListener("load", init);
+
+// CREATE SKILLS
+
+const createSkills = () => {
+  const markup = `<div class="skills__data">
+  <div class="skills__names">
+    <i class="fab fa-html5 skills__icon"></i>
+    <span class="skills__name">HTML5</span>
+  </div>
+  <div class="skills__bar skills__html">
+  </div>
+  <div>
+    <span class="skills__percentage">90%</span>
+  </div>
+</div>`;
+  skills.innerHTML = markup;
+};
+// createSkills();
+
+// CHANGE LANGUAGE
+
+let currentLanguage = "en";
+
+const text = [
+  ["About", "Rólam"],
+  ["Skills", "Szakértelem"],
+  ["Services", "Szolgáltatás"],
+  ["Portfolio", "Portfólió"],
+  ["Contact", "Kapcsolat"],
+  ["I am", "Bence"],
+  ["Bence", "vagyok,"],
+  ["Web Developer", "Webfejlesztő"],
+  ["My history", "Egy kis info"],
+  ["About Me", "Rólam"],
+  ["Years of Experience", "év tapasztalat"],
+  ["Projects", "Projektek"],
+  ["Competence", "Kompetenciák"],
+  ["Skills", "Szakértelem"],
+  ["Professional Skills", "Ismert nyelvek"],
+  ["Lorem ipsum dolor sit.", "asfgsdgsdfgsdfgsdfgsdfgsdfgsdfgd"],
+  ["Experience and Education", "Tapasztalat és képzés"],
+  ["Qualifications", "Kvalifikációk"],
+  ["Work Experience", "Munkahelyek"],
+  ["Junior Front End Developer", "Junior Front End Developer"],
+  ["UI/UX Designer", "UI/UX Designer"],
+  ["Education", "Képzések"],
+  ["Online Course", "Online Course"],
+  ["What I offer", "Amit nyújtok"],
+  ["Services", "Szolgáltatás"],
+  ["UI/UX Design", "UI/UX Design"],
+  ["asfgsdgsdfgsdfgsdfgsdfgsdfgsdfgd", "asfgsdgsdfgsdfgsdfgsdfgsdfgsdfgd"],
+  ["Know More", "Tudj meg többet"],
+  ["Web development", "Webfejlesztés"],
+  ["asfgsdfsssfsffgsdfgsdfgsdfgd", "sssfsffgsdfgsdfg"],
+  ["Graphic Design", "Grafikus design"],
+  ["Coming Soon", "Hamarosan"],
+  ["Projects in mind", "Milyen projekt jár a fejedben_"],
+  ["Contact me if you would like your ideas to be implemented", "Jelentekzz"],
+  ["Hire Me", "Fogadj fel"],
+  ["My recents work", "Legutóbi munkáim"],
+  ["All", "Mind"],
+  ["Web development", "Webfejlesztés"],
+  ["New portfolio", "Új portfolió"],
+  ["View Details", "Részletek"],
+  ["Client reviews", "Visszajelzések"],
+  ["Testimonial", "Rólam mondták"],
+  ["Client", "Kliens"],
+  ["sdgagfeyegrjhntmjkmyynyhjbyhtybertverg", "rjhntmjkmyynyhjbyhtyb"],
+  ["Feel free to", "Írj nekem"],
+  ["Contact me", "Kapcsolat"],
+  ["Location", "Helyszín"],
+  ["Budapest, Hungary", "Budapest, MO"],
+  ["Phone", "Telefon"],
+  ["Chat", "Üzenet"],
+  ["Hope I hear from you soon", "Remeéem írsz"],
+];
+
+const textElements = document.querySelectorAll(".txt");
+const changeText = (language) => {
+  if (language === currentLanguage) return;
+  textElements.forEach((element) => {
+    let index = currentLanguage === "en" ? 0 : 1;
+    const findText = text.find(
+      (el) => el[index] === element.textContent.trim()
+    );
+    index = index === 0 ? 1 : 0;
+    element.textContent = findText[index];
+  });
+  currentLanguage = language;
+};
+
+hu.addEventListener("click", () => {
+  changeText("hu");
+  en.classList.remove("language__active");
+  hu.classList.add("language__active");
+});
+en.addEventListener("click", () => {
+  changeText("en");
+  hu.classList.remove("language__active");
+  en.classList.add("language__active");
+});
