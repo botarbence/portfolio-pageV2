@@ -17,7 +17,10 @@ const skills = document.querySelector(".skills__container");
 const languageBtns = document.querySelector(".language__buttons");
 const textElements = document.querySelectorAll("[data-key]");
 const serviceCards = document.querySelectorAll(".service__data");
-
+const portfolioBtns = document.querySelectorAll(".button-link");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const closeModalBtn = document.querySelector(".modal__close");
 const data = {
   en: {
     navAbout: "About",
@@ -137,13 +140,9 @@ const data = {
 // SHOW MENU
 
 const showMenu = () => {
-  if ((nav, hamburger)) {
-    hamburger.addEventListener("click", () => {
-      navMenu.classList.toggle("nav__menu--show");
-    });
-  }
+  navMenu.classList.toggle("nav__menu--show");
 };
-showMenu();
+hamburger.addEventListener("click", showMenu);
 
 // ACTIVE LINK
 
@@ -209,10 +208,11 @@ footerDate.textContent = date.getFullYear();
 // HOME PARRALAX
 
 home.style.backgroundPositionY = 0;
-window.addEventListener("scroll", () => {
+const parralaxEffect = () => {
   let scrollY = window.pageYOffset;
   home.style.backgroundPositionY = `${scrollY * 0.7}px`;
-});
+};
+window.addEventListener("scroll", parralaxEffect);
 
 // REVEAL SECTIONS
 
@@ -234,15 +234,15 @@ sections.forEach((section) => {
 
 // DARK MODE
 
-let screen = true;
-
-screenmode.addEventListener("click", () => {
-  screen = !screen;
+let isDarkModeOn = false;
+const toggleDarkMode = () => {
+  isDarkModeOn = !isDarkModeOn;
   document.body.classList.toggle("dark-theme");
-  screenmode.innerHTML = screen
+  screenmode.innerHTML = isDarkModeOn
     ? `<span class="sun"><i class="fas fa-sun"></i></span>`
     : `<span class="sun"><i class="far fa-moon"></i></span>`;
-});
+};
+screenmode.addEventListener("click", toggleDarkMode);
 
 // LOAD PAGE
 
@@ -309,26 +309,46 @@ const setLanguage = (language) => {
 };
 setLanguage("en");
 
-languageBtns.addEventListener("click", (e) => {
+const changeLanguage = (e) => {
   let language = e.target.dataset.lang;
   setLanguage(language);
   [...languageBtns.children].forEach((el) =>
     el.classList.remove("language__active")
   );
   e.target.classList.add("language__active");
-});
+};
+languageBtns.addEventListener("click", changeLanguage);
 
 // SERVICE CARD CLICK
 
-serviceCards.forEach((card) =>
-  card.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (e.target.classList.contains("service__button")) {
-      e.target.closest(".card__container").classList.add("card--clicked");
-    } else {
-      e.target
-        .closest(".service__data")
-        .children[0].classList.remove("card--clicked");
-    }
-  })
-);
+const flipCard = (e) => {
+  e.preventDefault();
+  if (e.target.classList.contains("service__button")) {
+    e.target.closest(".card__container").classList.add("card--clicked");
+  } else {
+    e.target
+      .closest(".service__data")
+      .children[0].classList.remove("card--clicked");
+  }
+};
+serviceCards.forEach((card) => card.addEventListener("click", flipCard));
+
+// SHOW PORTFOLIO MODAL
+
+const openModal = (e) => {
+  e.preventDefault();
+  modal.classList.remove("modal--hidden");
+  overlay.classList.remove("modal--hidden");
+  modal.children[1].innerHTML = `<iframe height: "300px" width: "300px" src="http://bassdoktor.herokuapp.com/"></iframe>`;
+};
+
+const closeModal = () => {
+  modal.classList.add("modal--hidden");
+  overlay.classList.add("modal--hidden");
+};
+portfolioBtns.forEach((button) => {
+  button.addEventListener("click", openModal);
+});
+
+closeModalBtn.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
