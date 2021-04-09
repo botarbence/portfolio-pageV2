@@ -16,6 +16,7 @@ const screenmode = document.querySelector(".screen__mode");
 const skills = document.querySelector(".skills__container");
 const languageBtns = document.querySelector(".language__buttons");
 const textElements = document.querySelectorAll("[data-key]");
+const serviceCards = document.querySelectorAll(".service__data");
 
 const data = {
   en: {
@@ -51,7 +52,7 @@ const data = {
     uiuxTitle: "UI/UX Design",
     uiuxDescription: "dfgsdfgdsfgd",
     webdevTitle: "Web Development",
-    webdevDescriptions: "fgsdfgdfsgdf",
+    webdevDescription: "fgsdfgdfsgdf",
     graphicDesignTitle: "Graphic Design",
     graphicDesignDescription: "Coming Soon",
     projectTitle: "Project in Mind",
@@ -104,7 +105,7 @@ const data = {
     uiuxTitle: "UI/UX Design",
     uiuxDescription: "dfgsdfgdsfgd",
     webdevTitle: "Web Fejlesztés",
-    webdevDescriptions: "fgsdfgdfsgdf",
+    webdevDescription: "fgsdfgdfsgdf",
     graphicDesignTitle: "Graphic Design",
     graphicDesignDescription: "Hamarosan",
     projectTitle: "Ha van egy ötleted...",
@@ -316,3 +317,18 @@ languageBtns.addEventListener("click", (e) => {
   );
   e.target.classList.add("language__active");
 });
+
+// SERVICE CARD CLICK
+
+serviceCards.forEach((card) =>
+  card.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (e.target.classList.contains("service__button")) {
+      e.target.closest(".card__container").classList.add("card--clicked");
+    } else {
+      e.target
+        .closest(".service__data")
+        .children[0].classList.remove("card--clicked");
+    }
+  })
+);
