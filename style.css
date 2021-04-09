@@ -613,7 +613,7 @@ img {
   text-align: left;
 }
 
-.about__description span {
+.about__welcome {
   text-align: left;
   font-size: var(--h3-font-size);
   font-weight: var(--font-semi-bold);
@@ -677,6 +677,13 @@ img {
   margin-bottom: var(--mb-1);
   border-radius: 0.5rem;
   box-shadow: 0 4px 12px rgba(174, 190, 205, 0.3);
+  opacity: 1;
+  height: 3rem;
+}
+
+.skill__hidden {
+  opacity: 0;
+  height: 0;
 }
 
 .skill__icon {
@@ -697,26 +704,6 @@ img {
   height: 0.25rem;
   border-radius: 0.5rem;
   z-index: var(--z-back);
-}
-
-.skill__html {
-  width: 90%;
-}
-
-.skill__css {
-  width: 80%;
-}
-
-.skill__js {
-  width: 80%;
-}
-
-.skill__ux {
-  width: 85%;
-}
-
-.skill__react {
-  width: 65%;
 }
 
 /* QUALIFICATIONS */
