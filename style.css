@@ -73,6 +73,7 @@ body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1,
