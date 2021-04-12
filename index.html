@@ -304,19 +304,7 @@
           <span class="portfolio__item">App</span>
         </div>
         <div class="portfolio__container bd__grid">
-
-          <div class="portfolio__content">
-            <a href=""><img src="" class="portfolio__img" alt=""></a>
-            <div class="portfolio__data">
-              <span class="portfolio__subtitle">Web development</span>
-              <a href="">
-                <h2 class="portfolio__title">New portfolio</h2>
-              </a>
-              <button class="button button-link">View Details</button>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
     <!-- TESTIMONIAL -->
@@ -329,10 +317,12 @@
         <div class="testimonial__container">
           <div>
             <div class="testimonial__content">
-              <img src="" class="testimonial__img" alt="">
-              <h3 class="testimonial__title">Nik</h3>
+              <div class="testimonial__img">
+                <img src="./img/IMG_20140729_100301.jpg" alt="">
+              </div>
+              <h3 class="testimonial__title">MeMyself</h3>
               <span class="testimonial__client">Client</span>
-              <p class="testimonial__description">sdgagfeyegrjhntmjkmyynyhjbyhtybertverg</p>
+              <p class="testimonial__description">Your testimonial will be here!</p>
             </div>
           </div>
         </div>
@@ -374,17 +364,17 @@
             </div>
 
           </div>
-          <form action="" class="contact__form">
+          <form action="contactform.php" method="POST" class="contact__form">
             <div class="contact__inputs">
-              <input type="text" placeholder="Name" class="contact__input">
-              <input type="email" placeholder="Email" class="contact__input">
+              <input type="text" placeholder="Name" name="name" class="contact__input">
+              <input type="email" placeholder="Email" name="mail" class="contact__input">
             </div>
             <div class="contact__inputs">
-              <input type="text" placeholder="Project" class="contact__input">
-              <input type="number" placeholder="Number" class="contact__input">
+              <input type="text" placeholder="Project" name="subject" class="contact__input">
+              <input type="text" placeholder="Number" name="number" class="contact__input">
             </div>
-            <textarea name="" id="" cols="0" rows="7" placeholder="Message" class="contact__input"></textarea>
-            <button type="submit" class="button contact__button" data-key="contactButton"></button>
+            <textarea name="message" cols="0" rows="7" placeholder="Message" class="contact__input"></textarea>
+            <button type="submit" name="submit" class="button contact__button" data-key="contactButton"></button>
           </form>
         </div>
       </div>
@@ -409,8 +399,10 @@
   <!-- MODAL -->
 
   <div class="modal modal--hidden">
-    <button class="modal__close">X</button>
-    <div class="modal__container">
+    <div class="modal__close">
+      <div class="x"></div>
+    </div>
+    <div class="modal__container bd__grid">
 
     </div>
   </div>

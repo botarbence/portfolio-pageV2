@@ -15,12 +15,12 @@ const footerDate = document.querySelector(".date");
 const screenmode = document.querySelector(".screen__mode");
 const skills = document.querySelector(".skills__container");
 const languageBtns = document.querySelector(".language__buttons");
-const textElements = document.querySelectorAll("[data-key]");
 const serviceCards = document.querySelectorAll(".service__data");
-const portfolioBtns = document.querySelectorAll(".button-link");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const closeModalBtn = document.querySelector(".modal__close");
+const portfolios = document.querySelector(".portfolio__container");
+
 const data = {
   en: {
     navAbout: "About",
@@ -64,6 +64,7 @@ const data = {
     portfoliosSubtitle: "My recent work",
     portfoliosTitle: "Portfolio",
     portfolioNavAll: "All",
+    portfolioDetailsButton: "View Details",
     testimonialSubtitle: "Client reviews",
     testimonialTitle: "Testimonial",
     cpntactsSubtitle: "Feel free to",
@@ -117,6 +118,7 @@ const data = {
     portfoliosSubtitle: "Legutóbbi munkáim",
     portfoliosTitle: "Portfólió",
     portfolioNavAll: "Mind",
+    portfolioDetailsButton: "Reszletek",
     testimonialSubtitle: "Rólam írták",
     testimonialTitle: "Visszajelzések",
     contactsSubtitle: "Feel free to",
@@ -134,6 +136,16 @@ const data = {
     javascript: { name: "JavaScript", level: 75 },
     uxui: { name: "UX/UI", level: 85 },
     react: { name: "React/Redux", level: 65 },
+  },
+  portfolios: {
+    bassdoktor: {
+      type: "Web Development",
+      img: "./img/bassdoktor.png",
+      title: "Bassdoktor",
+      technologies: "React",
+      year: 2021,
+      url: "https://bassdoktor.herokuapp.com",
+    },
   },
 };
 
@@ -153,28 +165,53 @@ navLinks.forEach((link) => link.addEventListener("click", linkAction));
 
 // SCROLL TO LINK
 
-const scrollActive = () => {
-  const scrollY = window.pageYOffset;
+// const scrollActive = () => {
+//   const scrollY = window.pageYOffset;
+//   sections.forEach((section) => {
+//     if (!section.hasAttribute("id")) return;
+//     const sectionHeight = section.offsetHeight;
+//     const sectionTop = section.offsetTop - 50;
+
+//     sectionId = section.getAttribute("id");
+
+//     if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+//       document
+//         .querySelector(`.nav__menu a[href*=${sectionId}]`)
+//         .classList.add("active-link");
+//     } else {
+//       document
+//         .querySelector(`.nav__menu a[href*=${sectionId}]`)
+//         .classList.remove("active-link");
+//     }
+//   });
+// };
+// window.addEventListener("scroll", scrollActive);
+
+const scrollActive2 = () => {
   sections.forEach((section) => {
     if (!section.hasAttribute("id")) return;
-    const sectionHeight = section.offsetHeight;
-    const sectionTop = section.offsetTop - 50;
 
-    sectionId = section.getAttribute("id");
-
-    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-      document
-        .querySelector(`.nav__menu a[href*=${sectionId}]`)
-        .classList.add("active-link");
-    } else {
-      document
-        .querySelector(`.nav__menu a[href*=${sectionId}]`)
-        .classList.remove("active-link");
-    }
+    const setActiveSection = (entries, observer) => {
+      const [entry] = entries;
+      let sectionId = entry.target.getAttribute("id");
+      if (entry.isIntersecting) {
+        document
+          .querySelector(`.nav__link[href*=${sectionId}`)
+          .classList.add("active-link");
+      } else {
+        document
+          .querySelector(`.nav__link[href*=${sectionId}`)
+          .classList.remove("active-link");
+      }
+    };
+    const sectionObserver = new IntersectionObserver(setActiveSection, {
+      root: null,
+      threshold: 0.5,
+    });
+    sectionObserver.observe(section);
   });
 };
-window.addEventListener("scroll", scrollActive);
-
+window.addEventListener("scroll", scrollActive2);
 // CHANGE HEADER BACKGROUND
 
 function scrollHeader() {
@@ -261,19 +298,20 @@ window.addEventListener("load", init);
 const createSkills = () => {
   const markup = Object.values(data.skills)
     .map((skill, i) => {
-      return `<div class="skill__data skill__hidden" style="transition: all 0.4s ${
-        1 + i * 0.2
-      }s" >
-    <div class="skill__names">
-    <i class="fab fa-html5 skill__icon"></i>
-    <span class="skill__name">${skill.name}</span>
-    </div>
-    <div class="skill__bar" style="width:${skill.level}%;">
-    </div>
-    <div>
-    <span class="skill__percentage">${skill.level}%</span>
-    </div>
-    </div>`;
+      return `
+            <div class="skill__data skill__hidden" style="transition: all 0.4s ${
+              1 + i * 0.2
+            }s" >
+            <div class="skill__names">
+            <i class="fab fa-html5 skill__icon"></i>
+            <span class="skill__name">${skill.name}</span>
+            </div>
+            <div class="skill__bar" style="width:${skill.level}%;">
+            </div>
+            <div>
+            <span class="skill__percentage">${skill.level}%</span>
+            </div>
+            </div>`;
     })
     .join("");
   skills.innerHTML = markup;
@@ -299,8 +337,74 @@ const skillsObserver = new IntersectionObserver(revealSkills, {
 
 skillsObserver.observe(skills);
 
+// SERVICE CARD CLICK
+
+const flipCard = (e) => {
+  e.preventDefault();
+  if (e.target.classList.contains("service__button")) {
+    e.target.closest(".card__container").classList.add("card--clicked");
+  } else {
+    e.target
+      .closest(".service__data")
+      .children[0].classList.remove("card--clicked");
+  }
+};
+serviceCards.forEach((card) => card.addEventListener("click", flipCard));
+
+// PORTFOLIO LIST
+
+const showPortfolio = () => {
+  const markup = Object.entries(data.portfolios)
+    .map((portfolio) => {
+      return `
+            <div class="portfolio__content">
+            <a href="${portfolio[1].url}" target="_blank"><img src="${portfolio[1].img}" class="portfolio__img" alt=""></a>
+            <div class="portfolio__data">
+            <span class="portfolio__subtitle">${portfolio[1].type}</span>
+            <h2 class="portfolio__title">${portfolio[1].title}</h2>
+            <button class="button button-link" id=${portfolio[0]} data-key="portfolioDetailsButton">View Details</button>
+            </div>
+            </div>`;
+    })
+    .join("");
+
+  portfolios.innerHTML = markup;
+};
+showPortfolio();
+
+// SHOW PORTFOLIO MODAL
+
+const openModal = (e) => {
+  e.preventDefault();
+  modal.classList.remove("modal--hidden");
+  overlay.classList.remove("modal--hidden");
+  const currentPortfolio = data.portfolios[e.target.id];
+  modal.children[1].innerHTML = `
+          <img src="${currentPortfolio.img}"></img>
+          <div>
+          <h3>${currentPortfolio.title}'s website</h3>
+          <p>Technologies: ${currentPortfolio.technologies}</p>
+      <p>Year: ${currentPortfolio.year}</p>
+      <p>url: <a href="${currentPortfolio.url}">${currentPortfolio.url}</a></p>
+      </div>`;
+};
+
+const closeModal = () => {
+  modal.classList.add("modal--hidden");
+  overlay.classList.add("modal--hidden");
+};
+
+const portfolioDetailsBtns = document.querySelectorAll(".button-link");
+portfolioDetailsBtns.forEach((button) => {
+  button.addEventListener("click", openModal);
+});
+
+closeModalBtn.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
 // CHANGE LANGUAGE
 
+const textElements = document.querySelectorAll("[data-key]");
 const setLanguage = (language) => {
   textElements.forEach((element) => {
     let text = element.dataset.key;
@@ -318,37 +422,3 @@ const changeLanguage = (e) => {
   e.target.classList.add("language__active");
 };
 languageBtns.addEventListener("click", changeLanguage);
-
-// SERVICE CARD CLICK
-
-const flipCard = (e) => {
-  e.preventDefault();
-  if (e.target.classList.contains("service__button")) {
-    e.target.closest(".card__container").classList.add("card--clicked");
-  } else {
-    e.target
-      .closest(".service__data")
-      .children[0].classList.remove("card--clicked");
-  }
-};
-serviceCards.forEach((card) => card.addEventListener("click", flipCard));
-
-// SHOW PORTFOLIO MODAL
-
-const openModal = (e) => {
-  e.preventDefault();
-  modal.classList.remove("modal--hidden");
-  overlay.classList.remove("modal--hidden");
-  modal.children[1].innerHTML = `<iframe height: "300px" width: "300px" src="http://bassdoktor.herokuapp.com/"></iframe>`;
-};
-
-const closeModal = () => {
-  modal.classList.add("modal--hidden");
-  overlay.classList.add("modal--hidden");
-};
-portfolioBtns.forEach((button) => {
-  button.addEventListener("click", openModal);
-});
-
-closeModalBtn.addEventListener("click", closeModal);
-overlay.addEventListener("click", closeModal);
